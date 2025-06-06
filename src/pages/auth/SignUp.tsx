@@ -61,6 +61,7 @@ function SignUp() {
         password: data.password,
         options: {
           data: {
+            role: "admin",
             display_name: data.displayName,
             company_name: data.companyName,
             company_id: companyId
@@ -73,7 +74,11 @@ function SignUp() {
         return;
       }
 
-      if (Object.keys(sessionData.user?.user_metadata!).length > 0 && !sessionData.user?.user_metadata.email_verified) {
+      if (
+        Object.keys(sessionData.user?.user_metadata!).length > 0 
+        && Object.keys(sessionData.user?.user_metadata!).indexOf("email_verified") !== -1 
+        && !sessionData.user?.user_metadata.email_verified
+      ) {
         navigate("/confirmation");
         return;
       }

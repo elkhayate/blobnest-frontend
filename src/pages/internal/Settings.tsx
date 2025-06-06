@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/services/supabase"
 import { useNavigate } from "react-router-dom"
 
-export default function Home() {
+export default function Settings() {
   const navigate = useNavigate()
   const handleLogout = async () => {
     await supabase.auth.signOut()
