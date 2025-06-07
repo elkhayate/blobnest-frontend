@@ -1,30 +1,14 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import { supabase } from "../../services/supabase";
-import { useState, useEffect } from "react";
+import { useUser } from "@/hooks/useUser";
 import FallbackComponent from "../general/Fallback";
 
 const RequireAuth = () => {
   const location = useLocation();
-  const [checking, setChecking] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { user, loading } = useUser();
 
-  useEffect(() => {
-    const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
-      setIsAuthenticated(!!session);
-      setChecking(false);
-    });
+  if (loading) return <FallbackComponent />;
 
-    supabase.auth.getSession().then(({ data }) => {
-      setIsAuthenticated(!!data.session);
-      setChecking(false);
-    });
-
-    return () => listener.subscription.unsubscribe();
-  }, []);
-
-  if (checking) return <FallbackComponent />
-
-  if (!isAuthenticated) {
+  if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

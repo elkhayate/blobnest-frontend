@@ -1,29 +1,15 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 import { LogOut, Settings } from "lucide-react";
 import { supabase } from "@/services/supabase";
 import { useNavigate } from "react-router-dom";
 import { ModeToggle } from "@/components/mode-toggle";
+import { useUser } from "@/hooks/useUser";
 
 export default function Topbar() {
-  const [user, setUser] = useState<{ displayName: string; email: string; avatar: string; role: string } | null>(null);
+  const { user } = useUser();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      const u = data.user;
-      if (u) {
-        setUser({
-          displayName: u.user_metadata?.display_name || u.email,
-          email: u.email!,
-          avatar: typeof u.user_metadata?.avatar_url === 'string' ? u.user_metadata.avatar_url : "",
-          role: u.user_metadata?.role || "viewer"
-        }); 
-      }
-    });
-  }, []);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -48,17 +34,17 @@ export default function Topbar() {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="flex items-center gap-2">
               <Avatar className="w-8 h-8">
-                <AvatarImage src={user.avatar || ''} alt={user.displayName || ''} />
-                <AvatarFallback>{typeof user.displayName === 'string' && user.displayName.length > 0 ? user.displayName[0].toUpperCase() : "U"}</AvatarFallback>
+                <AvatarImage src={user.user_metadata?.avatar_url || ''} alt={user.user_metadata?.display_name || user.email || ''} />
+                <AvatarFallback>{(user.user_metadata?.display_name || user.email || 'U')[0].toUpperCase()}</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel>
               <div className="flex items-center justify-between">
-                <span>{typeof user.displayName === 'string' && user.displayName.length > 0 ? user.displayName : 'User'}</span>
-                <span className={`text-xs px-2 py-1 rounded-full capitalize ${getRoleBadgeColor(user.role)}`}>
-                  {user.role}
+                <span>{user.user_metadata?.display_name || user.email || 'User'}</span>
+                <span className={`text-xs px-2 py-1 rounded-full capitalize ${getRoleBadgeColor(user.user_metadata?.role || 'viewer')}`}>
+                  {user.user_metadata?.role || 'viewer'}
                 </span>
               </div>
               <span className="font-normal text-xs">{user.email}</span>
