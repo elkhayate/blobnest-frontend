@@ -30,17 +30,17 @@ export function UserManagementHeader({
   };
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-4">
+    <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-2 md:flex-row md:items-center">
         <Input
           placeholder="Search users..."
           value={filters.search}
           onChange={(e) => handleSearch(e.target.value)}
-          className="w-[300px]"
+          className="w-full md:w-[300px]"
         />
 
         <Select value={filters.role} onValueChange={handleRoleChange}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-full md:w-[180px]">
             <SelectValue placeholder="Select role" />
           </SelectTrigger>
           <SelectContent>
@@ -52,7 +52,7 @@ export function UserManagementHeader({
         </Select>
       </div>
 
-      <Button onClick={onCreateClick}>
+      <Button onClick={onCreateClick} className="w-full md:w-auto">
         <Plus className="mr-2 h-4 w-4" />
         Add User
       </Button>

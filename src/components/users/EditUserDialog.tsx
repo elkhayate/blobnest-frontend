@@ -32,7 +32,7 @@ const formSchema = z.object({
   email: z.string().email(),
   display_name: z.string().min(2),
   role: z.enum(["admin", "uploader", "viewer"] as const),
-  password: z.string().min(6).optional(),
+  password: z.string().min(6).optional().or(z.literal("")),
 });
 
 interface EditUserDialogProps {

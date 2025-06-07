@@ -91,14 +91,14 @@ export function UsersContent() {
   }
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto px-1 py-2 md:px-4 md:py-8">
       <UserManagementHeader
         filters={filters}
         onFiltersChange={setFilters}
         onCreateClick={() => setIsCreateDialogOpen(true)}
       />
 
-      <div className="mt-8">
+      <div className="mt-6 md:mt-8">
         <UserManagementTable
           users={data?.users || []}
           isLoading={isLoading}
@@ -107,7 +107,7 @@ export function UsersContent() {
         />
 
         {data && data.totalPages > 1 && (
-          <div className="mt-4">
+          <div className="mt-4 flex justify-center">
             <Pagination
               currentPage={filters.page}
               totalPages={data.totalPages}
