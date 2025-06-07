@@ -4,16 +4,17 @@ import { Separator } from "@/components/ui/separator";
 import { FileText, UploadCloud, Archive, List, LayoutDashboard, File, BookOpen, Users, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate, useLocation } from "react-router-dom";
+import { RoleBasedFeature } from "./RoleBasedFeature";
 
 const menu = [
-  { label: "Dashboard", icon: LayoutDashboard, path: "/" },
-  { label: "Users", icon: Users, path: "/users" },
-  { label: "My Files", icon: FileText, path: "/my-files" },
-  { label: "Files", icon: File, path: "/files" },
-  { label: "Shared Files", icon: BookOpen, path: "/shared-files" },
-  { label: "Upload", icon: UploadCloud, path: "/upload" },
-  { label: "Containers", icon: Archive, path: "/containers" },
-  { label: "Audit Logs", icon: List, path: "/audit-logs" },
+  { label: "Dashboard", icon: LayoutDashboard, path: "/", roles: ["viewer", "admin", "uploader"] },
+  { label: "Users", icon: Users, path: "/users", roles: ["admin"] },
+  { label: "My Files", icon: FileText, path: "/my-files", roles: ["viewer", "admin", "uploader"] },
+  { label: "Files", icon: File, path: "/files", roles: ["viewer", "admin", "uploader"] },
+  { label: "Shared Files", icon: BookOpen, path: "/shared-files", roles: ["viewer", "admin", "uploader"] },
+  { label: "Upload", icon: UploadCloud, path: "/upload", roles: ["uploader", "admin"] },
+  { label: "Containers", icon: Archive, path: "/containers", roles: ["viewer", "admin", "uploader"] },
+  { label: "Audit Logs", icon: List, path: "/audit-logs", roles: ["admin"] },
 ];
 
 export default function Sidebar() {
@@ -21,6 +22,26 @@ export default function Sidebar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const renderMenuItem = (item: typeof menu[0], isMobile: boolean = false) => (
+    <RoleBasedFeature key={item.label} allowedRoles={item.roles}>
+      <Button
+        variant="ghost"
+        className={cn(
+          "w-full flex items-center gap-3 px-4 py-2 rounded-none justify-start transition-all",
+          !isMobile && collapsed && "justify-center px-2",
+          location.pathname === item.path && "bg-primary/10 text-primary"
+        )}
+        onClick={() => {
+          navigate(item.path);
+          if (isMobile) setOpen(false);
+        }}
+      >
+        <item.icon className="w-5 h-5" />
+        {(!collapsed || isMobile) && <span className={cn("transition-opacity", !isMobile && collapsed && "opacity-0 pointer-events-none")}>{item.label}</span>}
+      </Button>
+    </RoleBasedFeature>
+  );
 
   // Mobile sidebar overlay
   return (
@@ -66,20 +87,7 @@ export default function Sidebar() {
           </div>
           <Separator />
           <nav className="flex-1 overflow-y-auto mt-2">
-            {menu.map((item) => (
-              <Button
-                key={item.label}
-                variant="ghost"
-                className={cn(
-                  "w-full flex items-center gap-3 px-4 py-2 rounded-none justify-start transition-all",
-                  location.pathname === item.path && "bg-primary/10 text-primary"
-                )}
-                onClick={() => { navigate(item.path); setOpen(false); }}
-              >
-                <item.icon className="w-5 h-5" />
-                <span>{item.label}</span>
-              </Button>
-            ))}
+            {menu.map(item => renderMenuItem(item, true))}
           </nav>
           <div className="p-4 mt-auto">
             <Separator />
@@ -107,21 +115,7 @@ export default function Sidebar() {
         </div>
         <Separator />
         <nav className="flex-1 overflow-y-auto mt-2">
-          {menu.map((item) => (
-            <Button
-              key={item.label}
-              variant="ghost"
-              className={cn(
-                "w-full flex items-center gap-3 px-4 py-2 rounded-none justify-start transition-all",
-                collapsed && "justify-center px-2",
-                location.pathname === item.path && "bg-primary/10 text-primary"
-              )}
-              onClick={() => navigate(item.path)}
-            >
-              <item.icon className="w-5 h-5" />
-              {!collapsed && <span className={cn("transition-opacity", collapsed && "opacity-0 pointer-events-none")}>{item.label}</span>}
-            </Button>
-          ))}
+          {menu.map(item => renderMenuItem(item))}
         </nav>
         {!collapsed && <div className="p-4 mt-auto">
           <Separator />

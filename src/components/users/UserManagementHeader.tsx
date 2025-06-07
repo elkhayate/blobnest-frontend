@@ -9,6 +9,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import type { UserFilters } from "@/types/user";
+import { useDebounce } from "@/hooks/useDebounce";
+import { useState, useEffect } from "react";
 
 interface UserManagementHeaderProps {
   filters: UserFilters;
@@ -21,9 +23,12 @@ export function UserManagementHeader({
   onFiltersChange,
   onCreateClick,
 }: UserManagementHeaderProps) {
-  const handleSearch = (value: string) => {
-    onFiltersChange({ ...filters, search: value, page: 1 });
-  };
+  const [searchValue, setSearchValue] = useState(filters.search);
+  const debouncedSearch = useDebounce(searchValue, 300);
+
+  useEffect(() => {
+    onFiltersChange({ ...filters, search: debouncedSearch, page: 1 });
+  }, [debouncedSearch]);
 
   const handleRoleChange = (value: string) => {
     onFiltersChange({ ...filters, role: value as UserFilters["role"], page: 1 });
@@ -34,8 +39,8 @@ export function UserManagementHeader({
       <div className="flex flex-col gap-2 md:flex-row md:items-center">
         <Input
           placeholder="Search users..."
-          value={filters.search}
-          onChange={(e) => handleSearch(e.target.value)}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
           className="w-full md:w-[300px]"
         />
 
