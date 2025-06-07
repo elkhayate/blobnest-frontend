@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { FileText, UploadCloud, Archive, List, LayoutDashboard, File, BookOpen } from "lucide-react";
+import { FileText, UploadCloud, Archive, List, LayoutDashboard, File, BookOpen, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const menu = [
   { label: "Dashboard", icon: LayoutDashboard, path: "/" },
+  { label: "Users", icon: Users, path: "/users" },
   { label: "My Files", icon: FileText, path: "/my-files" },
   { label: "Files", icon: File, path: "/files" },
   { label: "Shared Files", icon: BookOpen, path: "/shared-files" },
   { label: "Upload", icon: UploadCloud, path: "/upload" },
   { label: "Containers", icon: Archive, path: "/containers" },
-  { label: "Settings", icon: List, path: "/settings" },
+  { label: "Audit Logs", icon: List, path: "/audit-logs" },
 ];
 
 export default function Sidebar() {
