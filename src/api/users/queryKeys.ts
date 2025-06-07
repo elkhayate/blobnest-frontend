@@ -1,7 +1,7 @@
-import type { GetUsersParams } from "@/types/users";
+import type { UserFilters } from "@/types/user";
 
 export const usersQueryKeys = {
   all: ["users"] as const,
-  list: (params: GetUsersParams) => [...usersQueryKeys.all, "list", ...Object.values(params)] as const,
+  list: (filters: UserFilters) => [...usersQueryKeys.all, "list", filters] as const,
   details: (id: string) => [...usersQueryKeys.all, "details", id] as const,
 };

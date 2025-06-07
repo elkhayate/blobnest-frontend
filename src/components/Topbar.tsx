@@ -13,7 +13,6 @@ export default function Topbar() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      console.log(data);
       const u = data.user;
       if (u) {
         setUser({

@@ -18,7 +18,8 @@ import AuditLogs from '@/pages/maintenance/AuditLogs';
 import Users from '@/pages/internal/Users';
 import { ProtectedRoute } from '../ProtectedRoute';
 import Unauthorized from '../general/Unauthorized';
-import type { JSX } from 'react';
+import { Suspense, type JSX } from 'react';
+import FallbackComponent from '../general/Fallback';
 
 interface RouteConfig {
   path: string;
@@ -50,6 +51,7 @@ const protectedRoutes: RouteConfig[] = [
 
 const RoutesConfig: React.FC = () => {
   return (
+    <Suspense fallback={<FallbackComponent />}>
     <Routes>
       {publicRoutes.map(({ path, element }) => (
         <Route key={path} path={path} element={element} />
@@ -71,6 +73,7 @@ const RoutesConfig: React.FC = () => {
         </Route>
       </Route>
     </Routes>
+    </Suspense>
   );
 };
 

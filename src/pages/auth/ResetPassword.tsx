@@ -131,7 +131,7 @@ function ResetPassword() {
               {error && <p className="text-sm text-destructive">{error}</p>}
               {success && (
                 <p className="text-sm text-green-600">
-                  Password has been reset successfully. Redirecting to login...
+                  Password has been reset successfully. Logging in...
                 </p>
               )}
               

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useAuth } from "@/context/AuthContext";
 
 interface RoleBasedFeatureProps {
@@ -20,8 +20,3 @@ export function RoleBasedFeature({
 
   return <>{children}</>;
 }
-
-// Example usage:
-// <RoleBasedFeature allowedRoles={["admin"]}>
-//   <button>Admin Only Action</button>
-// </RoleBasedFeature> 
