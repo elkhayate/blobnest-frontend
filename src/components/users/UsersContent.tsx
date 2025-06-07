@@ -58,7 +58,13 @@ export function UsersContent() {
     if (!selectedUser) return;
 
     try {
-      await deleteUser.mutateAsync(selectedUser.id);
+      await deleteUser.mutateAsync(selectedUser.id, {
+        onSuccess: () => {
+          if (data?.users.length === 1 && filters.page > 1) {
+            setFilters((prev) => ({ ...prev, page: filters.page - 1 }));
+          }
+        },
+      });
       toast.success("User deleted successfully");
       setIsDeleteDialogOpen(false);
     } catch (error) {
