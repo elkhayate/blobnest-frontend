@@ -30,3 +30,13 @@ export interface UserFormData {
     company_name?: string;
     company_id?: string;
 } 
+
+export interface UserSettingsFormData {
+    email: string;
+    display_name: string;
+} 
+
+export interface CompanySettingsFormData {
+    storage_account_name: string;
+    sas_token: string;
+}

@@ -39,14 +39,14 @@ const publicRoutes: RouteConfig[] = [
 
 const protectedRoutes: RouteConfig[] = [
   { path: '/', element: <Dashboard />, roles: ['viewer', 'admin', 'uploader'] },
-  { path: '/settings', element: <Settings />, roles: ['admin'] },
+  { path: '/settings', element: <Settings />, roles: ['admin', 'uploader', 'viewer'] },
   { path: '/containers', element: <Containers />, roles: ['viewer', 'admin', 'uploader'] },
   { path: '/files', element: <Files />, roles: ['viewer', 'admin', 'uploader'] },
   { path: '/upload', element: <Upload />, roles: ['uploader', 'admin'] },
   { path: '/shared-files', element: <SharedFiles />, roles: ['viewer', 'admin', 'uploader'] },
   { path: '/my-files', element: <MyFiles />, roles: ['viewer', 'admin', 'uploader'] },
   { path: '/audit-logs', element: <AuditLogs />, roles: ['admin'] },
-  { path: '/users', element: <Users />, roles: ['admin'] }
+  { path: '/users', element: <Users />, roles: ['admin'] },
 ];
 
 const RoutesConfig: React.FC = () => {

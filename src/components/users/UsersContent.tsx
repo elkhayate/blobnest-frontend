@@ -31,9 +31,12 @@ export function UsersContent() {
 
   const handleCreateUser = async (formData: UserFormData) => {
     try {
-      await createUser.mutateAsync(formData);
-      toast.success("User created successfully");
-      setIsCreateDialogOpen(false);
+      await createUser.mutateAsync(formData, {
+        onSuccess: () => {
+          toast.success("User created successfully");
+          setIsCreateDialogOpen(false);
+        }
+      });
     } catch (error) {
       toast.error("Failed to create user");
     }
@@ -46,9 +49,12 @@ export function UsersContent() {
       await updateUser.mutateAsync({
         userId: selectedUser.id,
         data: formData,
+      }, {
+        onSuccess: () => {
+          toast.success("User updated successfully");
+          setIsEditDialogOpen(false);
+        }
       });
-      toast.success("User updated successfully");
-      setIsEditDialogOpen(false);
     } catch (error) {
       toast.error("Failed to update user");
     }
@@ -63,10 +69,10 @@ export function UsersContent() {
           if (data?.users.length === 1 && filters.page > 1) {
             setFilters((prev) => ({ ...prev, page: filters.page - 1 }));
           }
-        },
+          toast.success("User deleted successfully");
+          setIsDeleteDialogOpen(false);
+        }
       });
-      toast.success("User deleted successfully");
-      setIsDeleteDialogOpen(false);
     } catch (error) {
       toast.error("Failed to delete user");
     }

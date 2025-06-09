@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "@/api/api";
-import type { UserFormData } from "@/types/user";
+import type { UserFormData, UserSettingsFormData, CompanySettingsFormData } from "@/types/user";
 
 export function useCreateUser() {
   const queryClient = useQueryClient();
@@ -39,7 +39,36 @@ export function useDeleteUser() {
       return response.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries(  { queryKey: ["users"] });
     },
   });
 }
+
+export function useUpdateUserSettings() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: UserSettingsFormData) => {
+      const response = await axios.put("/users/settings", data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user-and-company-info"] });
+    },
+  });
+} 
+
+export function useUpdateCompanySettings() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: CompanySettingsFormData) => {
+      const response = await axios.put("/users/company-settings", data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user-and-company-info"] });
+    },
+  });
+} 
+
