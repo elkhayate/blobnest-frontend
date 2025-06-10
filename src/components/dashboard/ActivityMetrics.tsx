@@ -17,6 +17,7 @@ const stats = [
     icon: Upload,
     color: 'text-blue-500',
     bg: 'bg-blue-500/10',
+    border: 'border-blue-500/20',
   },
   {
     title: 'Downloads',
@@ -24,6 +25,7 @@ const stats = [
     icon: Download,
     color: 'text-green-500',
     bg: 'bg-green-500/10',
+    border: 'border-green-500/20',
   },
   {
     title: 'Deletions',
@@ -31,6 +33,7 @@ const stats = [
     icon: Trash2,
     color: 'text-red-500',
     bg: 'bg-red-500/10',
+    border: 'border-red-500/20',
   },
   {
     title: 'Total Operations',
@@ -38,33 +41,43 @@ const stats = [
     icon: Activity,
     color: 'text-purple-500',
     bg: 'bg-purple-500/10',
+    border: 'border-purple-500/20',
   },
 ];
+ 
 
 export function ActivityMetrics({ metrics }: ActivityMetricsProps) {
+
   return (
-    <div className="space-y-4">
-      <CardHeader className="flex flex-row items-center gap-2 pb-2">
-        <Activity className="h-5 w-5 text-primary" />
-        <CardTitle>Activity Metrics</CardTitle>
+    <>
+      <CardHeader className="flex flex-row items-center gap-2 pb-3">
+        <Activity className="h-4 w-4 text-primary" />
+        <CardTitle className="text-lg">Activity Metrics</CardTitle>
       </CardHeader>
-      <CardContent>
-        <ul className="divide-y divide-border rounded-xl overflow-hidden bg-background shadow">
+      <CardContent className="pt-0">
+        <div className="grid grid-cols-2 gap-3">
           {stats.map((stat) => (
-            <li key={stat.key} className="flex items-center gap-4 px-6 py-6">
-              <div className={`rounded-xl ${stat.bg} p-3`}>
-                <stat.icon className={`h-7 w-7 ${stat.color}`} />
+            <div 
+              key={stat.key} 
+              className={`group relative overflow-hidden rounded-lg border ${stat.border} ${stat.bg} p-3 transition-all hover:shadow-sm hover:scale-[1.02]`}
+            >
+              <div className="flex items-center gap-3">
+                <div className={`rounded-lg ${stat.bg} p-2 ring-1 ring-inset ${stat.border}`}>
+                  <stat.icon className={`h-4 w-4 ${stat.color}`} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-medium text-muted-foreground mb-1 truncate">
+                    {stat.title}
+                  </p>
+                  <p className="text-2xl font-bold text-foreground leading-none">
+                    {metrics[stat.key as keyof typeof metrics].toLocaleString()}
+                  </p>
+                </div>
               </div>
-              <div className="flex-1">
-                <p className="text-base font-medium text-muted-foreground mb-1">{stat.title}</p>
-                <span className="text-3xl font-extrabold text-foreground">
-                  {metrics[stat.key as keyof typeof metrics]}
-                </span>
-              </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </CardContent>
-    </div>
+    </>
   );
 }

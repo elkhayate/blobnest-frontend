@@ -44,23 +44,21 @@ export function DashboardContent() {
           </SelectContent>
         </Select>
       </div>
-
-      <div className="rounded-md border">
-        <div className="grid gap-4 md:grid-cols-2 p-4">
-          <Card className="rounded-md border bg-background p-4 md:p-6">
+      <div className="rounded-md border p-2"> 
+        <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2">
+          <Card className="p-4 md:p-6">
             <StorageMetricsChart metrics={storageMetrics} />
           </Card>
-          <Card className="rounded-md border bg-background p-4 md:p-6">
+          <Card className="p-4 md:p-6">
             <OverviewStats overview={dashboardStats.overview} />
           </Card>
-          <Card className="rounded-md border bg-background p-4 md:p-6">
+          <Card className="p-4 md:p-6">
             <ActivityMetrics metrics={dashboardStats.activityMetrics} />
           </Card>
-          <Card className="rounded-md border bg-background p-4 md:p-6">
+          <Card className="p-4 md:p-6">
             <ContainerStats containers={dashboardStats.containerStats} />
           </Card>
-
-        </div>
+        </div>  
       </div>
     </div>
   );
