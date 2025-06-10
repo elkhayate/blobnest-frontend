@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Pencil, Trash2 } from "lucide-react";
 import type { User } from "@/types/user";
+import { RoleBasedFeature } from "../RoleBasedFeature";
 
 interface UserManagementTableProps {
   users: User[];
@@ -80,20 +81,26 @@ export function UserManagementTable({
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-2">
-                    <Button
-                      variant="secondary"
-                      size="icon"
-                      onClick={() => onEditClick(user)}
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      size="icon"
-                      onClick={() => onDeleteClick(user)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <RoleBasedFeature
+                      allowedRoles={["admin"]}
+                      children={
+                        <Button
+                          variant="secondary"
+                          size="icon"
+                          onClick={() => onEditClick(user)}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>} />
+                    <RoleBasedFeature
+                      allowedRoles={["admin"]}
+                      children={
+                        <Button
+                          variant="destructive"
+                          size="icon"
+                          onClick={() => onDeleteClick(user)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>} />
                   </div>
                 </TableCell>
               </TableRow>
@@ -120,20 +127,26 @@ export function UserManagementTable({
                 Created {new Date(user.created_at).toLocaleDateString()}
               </p>
               <div className="flex gap-2">
-                <Button
-                  variant="secondary"
-                  size="icon"
-                  onClick={() => onEditClick(user)}
-                >
-                  <Pencil className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  onClick={() => onDeleteClick(user)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                <RoleBasedFeature
+                  allowedRoles={["admin"]}
+                  children={
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      onClick={() => onEditClick(user)}
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </Button>} />
+                <RoleBasedFeature
+                  allowedRoles={["admin"]}
+                  children={
+                    <Button
+                      variant="destructive"
+                      size="icon"
+                      onClick={() => onDeleteClick(user)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>} />
               </div>
             </div>
           </div>

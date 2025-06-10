@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import type { FileFilters } from "@/types/file";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useState, useEffect } from "react";
+import { RoleBasedFeature } from "../RoleBasedFeature";
 
 interface FilesManagementHeaderProps {
   filters: FileFilters;
@@ -34,10 +35,15 @@ export function FilesManagementHeader({
         />
       </div>
 
-      <Button onClick={onCreateClick} className="w-full md:w-auto">
-        <Plus className="mr-2 h-4 w-4" />
-        Upload File
-      </Button>
+      <RoleBasedFeature
+        allowedRoles={["admin", "uploader"]}
+        children={
+          <Button onClick={onCreateClick} className="w-full md:w-auto">
+            <Plus className="mr-2 h-4 w-4" />
+            Upload File
+          </Button>
+        }
+      />
     </div>
   );
 }

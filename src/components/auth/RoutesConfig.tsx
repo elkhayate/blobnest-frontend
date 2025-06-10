@@ -39,7 +39,7 @@ const protectedRoutes: RouteConfig[] = [
   { path: '/settings', element: <Settings />, roles: ['admin', 'uploader', 'viewer'] },
   { path: '/containers', element: <Containers />, roles: ['viewer', 'admin', 'uploader'] },
   { path: '/files', element: <Files />, roles: ['viewer', 'admin', 'uploader'] },
-  { path: '/audit-logs', element: <AuditLogs />, roles: ['admin'] },
+  { path: '/audit-logs', element: <AuditLogs />, roles: ['admin', 'uploader', 'viewer'] },
   { path: '/users', element: <Users />, roles: ['admin'] },
 ];
 

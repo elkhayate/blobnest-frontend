@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import type { ContainerFilters } from "@/types/container";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useState, useEffect } from "react";
+import { RoleBasedFeature } from "../RoleBasedFeature";
 
 interface ContainerManagementHeaderProps {
   filters: ContainerFilters;
@@ -33,11 +34,15 @@ export function ContainerManagementHeader({
           className="w-full md:w-[300px]"
         />
       </div>
-
-      <Button onClick={onCreateClick} className="w-full md:w-auto">
-        <Plus className="mr-2 h-4 w-4" />
-        Create Container
-      </Button>
+      <RoleBasedFeature
+        allowedRoles={["admin", "uploader"]}
+        children={
+          <Button onClick={onCreateClick} className="w-full md:w-auto">
+            <Plus className="mr-2 h-4 w-4" />
+            Create Container
+          </Button>
+        }
+      />
     </div>
   );
 } 

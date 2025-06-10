@@ -9,9 +9,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Pencil, Trash2 } from "lucide-react";
- 
+
 import type { Container } from "@/types/container";
 import React from "react";
+import { RoleBasedFeature } from "../RoleBasedFeature";
 
 interface ContainerManagementTableProps {
   containers: Container[];
@@ -103,20 +104,32 @@ export function ContainerManagementTable({
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-2">
-                    <Button
-                      variant="secondary"
-                      size="icon"
-                      onClick={() => onEditClick(container)}
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      size="icon"
-                      onClick={() => onDeleteClick(container)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <RoleBasedFeature
+                      allowedRoles={["admin", "uploader"]}
+                      children={
+                        <Button
+                          variant="secondary"
+                          size="icon"
+                          onClick={() => onEditClick(container)}
+                          aria-label="Edit container"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                      }
+                    />
+                    <RoleBasedFeature
+                      allowedRoles={["admin"]}
+                      children={
+                        <Button
+                          variant="destructive"
+                          size="icon"
+                          onClick={() => onDeleteClick(container)}
+                          aria-label="Delete container"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      }
+                    />
                   </div>
                 </TableCell>
               </TableRow>
@@ -162,22 +175,32 @@ export function ContainerManagementTable({
               </div>
             )}
             <div className="flex justify-end pt-2 gap-2">
-              <Button
-                variant="secondary"
-                size="icon"
-                onClick={() => onEditClick(container)}
-                aria-label="Edit container"
-              >
-                <Pencil className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="destructive"
-                size="icon"
-                onClick={() => onDeleteClick(container)}
-                aria-label="Delete container"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+              <RoleBasedFeature
+                allowedRoles={["admin", "uploader"]}
+                children={
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    onClick={() => onEditClick(container)}
+                    aria-label="Edit container"
+                  >
+                    <Pencil className="h-4 w-4" />
+                  </Button>
+                }
+              />
+              <RoleBasedFeature
+                allowedRoles={["admin"]}
+                children={
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    onClick={() => onDeleteClick(container)}
+                    aria-label="Delete container"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                }
+              />
             </div>
           </div>
         ))}

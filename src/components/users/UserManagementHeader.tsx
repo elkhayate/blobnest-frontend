@@ -11,6 +11,7 @@ import { Plus } from "lucide-react";
 import type { UserFilters } from "@/types/user";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useState, useEffect } from "react";
+import { RoleBasedFeature } from "../RoleBasedFeature";
 
 interface UserManagementHeaderProps {
   filters: UserFilters;
@@ -56,11 +57,15 @@ export function UserManagementHeader({
           </SelectContent>
         </Select>
       </div>
-
-      <Button onClick={onCreateClick} className="w-full md:w-auto">
-        <Plus className="mr-2 h-4 w-4" />
-        Add User
-      </Button>
+      <RoleBasedFeature
+        allowedRoles={["admin"]}
+        children={
+          <Button onClick={onCreateClick} className="w-full md:w-auto">
+            <Plus className="mr-2 h-4 w-4" />
+            Add User
+          </Button>
+        }
+      />
     </div>
   );
 } 

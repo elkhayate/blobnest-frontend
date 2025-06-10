@@ -10,8 +10,8 @@ const menu = [
   { label: "Dashboard", icon: LayoutDashboard, path: "/", roles: ["viewer", "admin", "uploader"] },
   { label: "Containers", icon: Archive, path: "/containers", roles: ["viewer", "admin", "uploader"] },
   { label: "Files", icon: File, path: "/files", roles: ["viewer", "admin", "uploader"] },
-  { label: "Users", icon: Users, path: "/users", roles: ["admin"] },
-  { label: "Audit Logs", icon: List, path: "/audit-logs", roles: ["admin"] },
+  { label: "Users", icon: Users, path: "/users", roles: ["admin" ] },
+  { label: "Audit Logs", icon: List, path: "/audit-logs", roles: ["admin", "uploader", "viewer"] },
 ];
 
 export default function Sidebar() {
