@@ -1,7 +1,14 @@
-import { useGetContainers } from "@/api/containers/queries";
+import { Suspense } from "react";
+import { ContainersErrorBoundary } from "@/components/containers/ContainersErrorBoundary";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { ContainersContent } from "@/components/containers/ContainersContent";
 
 export default function Containers() {
-  const { data: containers } = useGetContainers();
-  console.log(containers);
-  return <div>Containers Page</div>;
+  return (
+    <ContainersErrorBoundary>
+      <Suspense fallback={<LoadingSpinner />}>
+        <ContainersContent />
+      </Suspense>
+    </ContainersErrorBoundary>
+  );
 } 

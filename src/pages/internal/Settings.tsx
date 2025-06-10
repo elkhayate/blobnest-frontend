@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/services/supabase"
-import { useNavigate } from "react-router-dom"
 import { useGetUserAndCompany } from "@/api/users/queries"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
@@ -10,10 +8,11 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useUpdateUserSettings } from "@/api/users/mutations"
 import { useUpdateCompanySettings } from "@/api/users/mutations"
 import { toast } from "sonner";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 
 const userFormSchema = z.object({
   display_name: z.string().min(2, "Display name must be at least 2 characters"),
@@ -26,11 +25,11 @@ const companyFormSchema = z.object({
 });
 
 export default function Settings() {
-  const navigate = useNavigate()
   const { data: userAndCompanyInfo } = useGetUserAndCompany()
   const isAdmin = userAndCompanyInfo?.user?.role === "admin"
   const { mutateAsync: updateUserSettings } = useUpdateUserSettings()
   const { mutateAsync: updateCompanySettings } = useUpdateCompanySettings()
+  const [isAccessKeyVisible, setIsAccessKeyVisible] = useState(false)
   const userForm = useForm<z.infer<typeof userFormSchema>>({
     resolver: zodResolver(userFormSchema),
     defaultValues: {
@@ -61,11 +60,6 @@ export default function Settings() {
     })
   }, [userAndCompanyInfo])
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut()
-    navigate("/login")
-  }
-
   const onUserSubmit = async (values: z.infer<typeof userFormSchema>) => {
     await updateUserSettings(values, {
       onSuccess: () => {
@@ -95,9 +89,9 @@ export default function Settings() {
 
   return (
     <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
+      <div>
         <h1 className="text-2xl font-bold">Settings</h1>
-        <Button onClick={handleLogout}>Logout</Button>
+        
       </div>
 
       <Tabs defaultValue="user" className="w-full">
@@ -190,9 +184,26 @@ export default function Settings() {
                         name="sas_token"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>SAS Token</FormLabel>
+                            <FormLabel>Access Key</FormLabel>
                             <FormControl>
-                              <Input {...field} />
+                              <div className="relative">
+                                <Input 
+                                  {...field} 
+                                  type={isAccessKeyVisible ? "text" : "password"}
+                                  className="pr-10"  
+                                />
+                                <button
+                                  type="button"
+                                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                                  onClick={() => setIsAccessKeyVisible(!isAccessKeyVisible)}
+                                >
+                                  {isAccessKeyVisible ? (
+                                    <EyeSlashIcon className="h-5 w-5" />
+                                  ) : (
+                                    <EyeIcon className="h-5 w-5" />
+                                  )}
+                                </button>
+                              </div>
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -211,4 +222,3 @@ export default function Settings() {
     </div>
   );
 }
-  

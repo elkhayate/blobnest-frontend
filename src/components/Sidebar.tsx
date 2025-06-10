@@ -1,19 +1,16 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { FileText, UploadCloud, Archive, List, LayoutDashboard, File, BookOpen, Users, Menu } from "lucide-react";
+import {  Archive, List, LayoutDashboard, File,  Users, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate, useLocation } from "react-router-dom";
 import { RoleBasedFeature } from "./RoleBasedFeature";
 
 const menu = [
   { label: "Dashboard", icon: LayoutDashboard, path: "/", roles: ["viewer", "admin", "uploader"] },
-  { label: "Users", icon: Users, path: "/users", roles: ["admin"] },
-  { label: "My Files", icon: FileText, path: "/my-files", roles: ["viewer", "admin", "uploader"] },
-  { label: "Files", icon: File, path: "/files", roles: ["viewer", "admin", "uploader"] },
-  { label: "Shared Files", icon: BookOpen, path: "/shared-files", roles: ["viewer", "admin", "uploader"] },
-  { label: "Upload", icon: UploadCloud, path: "/upload", roles: ["uploader", "admin"] },
   { label: "Containers", icon: Archive, path: "/containers", roles: ["viewer", "admin", "uploader"] },
+  { label: "Files", icon: File, path: "/files", roles: ["viewer", "admin", "uploader"] },
+  { label: "Users", icon: Users, path: "/users", roles: ["admin"] },
   { label: "Audit Logs", icon: List, path: "/audit-logs", roles: ["admin"] },
 ];
 

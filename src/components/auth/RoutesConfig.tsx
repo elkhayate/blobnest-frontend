@@ -10,10 +10,7 @@ import Confirmation from '../general/Confirmation';
 import DashboardLayout from "@/layouts/DashboardLayout";
 import Dashboard from '@/pages/maintenance/Dashboard';
 import Containers from '@/pages/maintenance/Containers';
-import MyFiles from '@/pages/maintenance/MyFiles';
 import Files from '@/pages/maintenance/Files';
-import Upload from '@/pages/maintenance/Upload';
-import SharedFiles from '@/pages/maintenance/SharedFiles';
 import AuditLogs from '@/pages/maintenance/AuditLogs';
 import Users from '@/pages/internal/Users';
 import { ProtectedRoute } from '../ProtectedRoute';
@@ -42,9 +39,6 @@ const protectedRoutes: RouteConfig[] = [
   { path: '/settings', element: <Settings />, roles: ['admin', 'uploader', 'viewer'] },
   { path: '/containers', element: <Containers />, roles: ['viewer', 'admin', 'uploader'] },
   { path: '/files', element: <Files />, roles: ['viewer', 'admin', 'uploader'] },
-  { path: '/upload', element: <Upload />, roles: ['uploader', 'admin'] },
-  { path: '/shared-files', element: <SharedFiles />, roles: ['viewer', 'admin', 'uploader'] },
-  { path: '/my-files', element: <MyFiles />, roles: ['viewer', 'admin', 'uploader'] },
   { path: '/audit-logs', element: <AuditLogs />, roles: ['admin'] },
   { path: '/users', element: <Users />, roles: ['admin'] },
 ];

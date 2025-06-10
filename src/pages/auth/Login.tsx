@@ -92,7 +92,7 @@ function Login() {
                     {...register("password")}
                     type={isVisible ? "text" : "password"}
                     placeholder="Enter your password"
-                    className={cn(errors.password && "border-destructive")}
+                    className={cn("pr-10", errors.password && "border-destructive")}
                   />
                   <button
                     type="button"
