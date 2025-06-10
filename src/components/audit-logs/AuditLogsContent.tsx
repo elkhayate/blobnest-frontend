@@ -38,7 +38,7 @@ export function AuditLogsContent() {
       <div className="mt-6 md:mt-8">
         <AuditLogsTable logs={(data?.logs) as unknown as AuditLog[]} isLoading={isLoading} />
 
-        {data?.totalPages && data?.totalPages > 1 && (
+        {(data?.totalPages && data?.totalPages > 1) ? (
           <div className="mt-4 flex justify-center">
             <Pagination 
               currentPage={filters.page}
@@ -46,7 +46,7 @@ export function AuditLogsContent() {
               onPageChange={handlePageChange}
             />
           </div>
-        )}
+        ) : <></>}
       </div>
     </div>
   );
