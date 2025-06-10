@@ -57,7 +57,7 @@ export function AuditLogsTable({ logs, isLoading }: AuditLogsTableProps) {
               <TableHead>Timestamp</TableHead>
               <TableHead>Operation</TableHead>
               <TableHead>Container</TableHead>
-              <TableHead>User</TableHead>
+ 
               <TableHead>Details</TableHead>
             </TableRow>
           </TableHeader>
@@ -73,7 +73,7 @@ export function AuditLogsTable({ logs, isLoading }: AuditLogsTableProps) {
                   </Badge>
                 </TableCell>
                 <TableCell>{log.containerName}</TableCell>
-                <TableCell>{log.userName}</TableCell>
+              
                 <TableCell>
                   {Object.keys(log.details).length > 0 ? (
                     <div className="grid grid-cols-2 gap-x-4 gap-y-1 max-w-xs">
@@ -108,11 +108,6 @@ export function AuditLogsTable({ logs, isLoading }: AuditLogsTableProps) {
               <Badge variant="secondary" className={`text-xs px-2 py-1 rounded-full capitalize ${getOperationBadgeColor(log.operation)} whitespace-nowrap`}>
                 {log.operation}
               </Badge>
-            </div>
-            <div className="flex flex-row justify-between pb-2 mb-2">
-              <p className="text-sm text-muted-foreground break-words">
-                User: {log.userName}
-              </p>
             </div>
             {Object.keys(log.details).length > 0 && (
               <div className="mb-2">

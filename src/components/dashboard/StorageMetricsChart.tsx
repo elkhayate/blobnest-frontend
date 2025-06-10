@@ -1,4 +1,4 @@
-import {   CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -27,10 +27,10 @@ interface StorageMetricsChartProps {
   metrics: StorageMetrics;
 }
 
+ 
 export function StorageMetricsChart({ metrics }: StorageMetricsChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
 
-  // Responsive chart sizing
   useEffect(() => {
     if (chartRef.current) {
       chartRef.current.style.height = '100%';
@@ -40,29 +40,29 @@ export function StorageMetricsChart({ metrics }: StorageMetricsChartProps) {
   }, []);
 
   const data = {
-    labels: metrics.size.map((_, index) => `Day ${index + 1}`),
+    labels: metrics.size.map(item => item.date),
     datasets: [
       {
-        label: 'Storage Size',
-        data: metrics.size,
+        label: 'Storage Size (MB)',
+        data: metrics.size.map(item => item.size / 1024), 
         borderColor: 'rgb(75, 192, 192)',
         tension: 0.1,
       },
       {
         label: 'Uploads',
-        data: metrics.uploads,
+        data: metrics.uploads.map(item => item.count),
         borderColor: 'rgb(54, 162, 235)',
         tension: 0.1,
       },
       {
         label: 'Downloads',
-        data: metrics.downloads,
+        data: metrics.downloads.map(item => item.count),
         borderColor: 'rgb(255, 99, 132)',
         tension: 0.1,
       },
       {
         label: 'Deletions',
-        data: metrics.deletions,
+        data: metrics.deletions.map(item => item.count),
         borderColor: 'rgb(255, 159, 64)',
         tension: 0.1,
       },
@@ -108,4 +108,4 @@ export function StorageMetricsChart({ metrics }: StorageMetricsChartProps) {
       </CardContent>
     </div>
   );
-} 
+}

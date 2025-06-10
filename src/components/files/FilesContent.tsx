@@ -102,7 +102,7 @@ export function FilesContent() {
   }
 
   return (
-    <div className="container mx-auto px-1 py-2 md:px-4 md:py-8">
+    <div className="container mx-auto px-1 py-2 md:px-4 md:py-4">
       <FilesManagementHeader
         filters={filters}
         onFiltersChange={setFilters}

@@ -24,7 +24,7 @@ export function DashboardContent() {
   }
 
   return (
-    <div className="container mx-auto px-1 py-2 md:px-4 md:py-8">
+    <div className="container mx-auto px-1 py-1 md:px-4 md:py-4">
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold sm:text-3xl">Dashboard</h1>
@@ -48,17 +48,18 @@ export function DashboardContent() {
       <div className="rounded-md border">
         <div className="grid gap-4 md:grid-cols-2 p-4">
           <Card className="rounded-md border bg-background p-4 md:p-6">
-            <ActivityMetrics metrics={dashboardStats.activityMetrics} />
-          </Card>
-          <Card className="rounded-md border bg-background p-4 md:p-6">
-            <ContainerStats containers={dashboardStats.containerStats} />
-          </Card>
-          <Card className="rounded-md border bg-background p-4 md:p-6">
             <StorageMetricsChart metrics={storageMetrics} />
           </Card>
           <Card className="rounded-md border bg-background p-4 md:p-6">
             <OverviewStats overview={dashboardStats.overview} />
           </Card>
+          <Card className="rounded-md border bg-background p-4 md:p-6">
+            <ActivityMetrics metrics={dashboardStats.activityMetrics} />
+          </Card>
+          <Card className="rounded-md border bg-background p-4 md:p-6">
+            <ContainerStats containers={dashboardStats.containerStats} />
+          </Card>
+
         </div>
       </div>
     </div>

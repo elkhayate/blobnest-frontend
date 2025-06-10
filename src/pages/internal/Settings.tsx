@@ -73,7 +73,7 @@ export default function Settings() {
       onSuccess: () => {
         toast.success("Company settings updated successfully")
       }
-    })  
+    })
   }
 
   const getRoleBadgeColor = (role: string) => {
@@ -88,7 +88,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="container mx-auto px-1 py-2 md:px-4 md:py-8">
+    <div className="container mx-auto px-1 py-2 md:px-4 md:py-4">
       <Tabs defaultValue="user" className="w-full">
         <TabsList>
           <TabsTrigger value="user">User</TabsTrigger>
@@ -100,11 +100,11 @@ export default function Settings() {
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>User Profile</CardTitle>
               <Badge variant="secondary" className={`text-xs px-2 py-1 rounded-full capitalize ${getRoleBadgeColor(userAndCompanyInfo?.user?.role || 'viewer')}`}>
-                  {userAndCompanyInfo?.user?.role || 'viewer'}
-                </Badge>
+                {userAndCompanyInfo?.user?.role || 'viewer'}
+              </Badge>
             </CardHeader>
             <CardContent>
-               
+
 
               <Form {...userForm}>
                 <form onSubmit={userForm.handleSubmit(onUserSubmit)} className="space-y-4">
@@ -137,8 +137,9 @@ export default function Settings() {
                       )}
                     />
                   </div>
-
-                  <Button type="submit">Save</Button>
+                  <div className="flex flex-row justify-end">
+                    <Button type="submit">Save</Button>
+                  </div>
                 </form>
               </Form>
             </CardContent>
@@ -155,7 +156,7 @@ export default function Settings() {
                 </div>
               </CardHeader>
               <CardContent>
-             
+
 
                 <Form {...companyForm}>
                   <form onSubmit={companyForm.handleSubmit(onCompanySubmit)} className="space-y-4">
@@ -182,10 +183,10 @@ export default function Settings() {
                             <FormLabel>Access Key</FormLabel>
                             <FormControl>
                               <div className="relative">
-                                <Input 
-                                  {...field} 
+                                <Input
+                                  {...field}
                                   type={isAccessKeyVisible ? "text" : "password"}
-                                  className="pr-10"  
+                                  className="pr-10"
                                 />
                                 <button
                                   type="button"
@@ -206,7 +207,9 @@ export default function Settings() {
                       />
                     </div>
 
-                    <Button type="submit">Save</Button>
+                    <div className="flex flex-row justify-end">
+                      <Button type="submit">Save</Button>
+                    </div>
                   </form>
                 </Form>
               </CardContent>

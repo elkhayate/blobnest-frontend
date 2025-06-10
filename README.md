@@ -1,54 +1,36 @@
-# React + TypeScript + Vite
+# BlobNest Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+BlobNest is a modern, professional web dashboard for managing and monitoring your Azure Blob Storage account. It provides a user-friendly interface for administrators and users to view, organize, and control containers, files, and storage activity in real time.
 
-Currently, two official plugins are available:
+[Backend Repository](https://github.com/elkhayate/blobnest-backend)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Dashboard Overview**: Visualize total containers, files, storage size, and recent activity with beautiful charts and metrics.
+- **Container Management**: List, search, create, edit, and delete containers. View metadata, access levels, and file counts.
+- **File Pages & Previews**: Browse files within containers, preview files directly in cards, and manage file actions.
+- **User Management**: Role-based access control for admins, uploaders, and viewers. Manage users and permissions.
+- **Activity & Storage Metrics**: Track uploads, downloads, deletions, and storage usage over time with interactive charts.
+- **Audit Logs**: Review system and user actions for compliance and troubleshooting.
+- **Responsive UI**: Works seamlessly on desktop and mobile devices.
+- **Error Boundaries**: Friendly error handling and recovery for all major pages.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Technology Stack
+- **Frontend**: React, TypeScript, Tailwind CSS, shadcn/ui
+- **State/Data**: React Query, Suspense, custom hooks
+- **Charts**: Chart.js, react-chartjs-2
+- **Backend**: Express.js, TypeScript, Supabase, Azure Storage SDK
+- **Security**: Helmet, Express Rate Limit, Express Validator, Zod
+- **Logging**: Winston, Morgan
+- **File Handling**: Multer
+- **Performance**: Compression
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Who is it for?
+- Cloud administrators managing Azure Blob Storage
+- Teams needing a visual, secure way to monitor and control storage
+- Organizations requiring audit logs and role-based access
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Live Demo
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+You can [connect with me on LinkedIn](https://www.linkedin.com/in/mohamed-el-khayate-4535a91b6/) to request demo credentials for testing the application with an existing Azure account. Alternatively, you're welcome to sign up and connect your own Azure storage account.
+You can contact me on linkedIn to give an already linked with azure account to test the app, or fell free to sign up and link your proper account

@@ -96,7 +96,7 @@ export function ContainersContent() {
   }
 
   return (
-    <div className="container mx-auto px-1 py-2 md:px-4 md:py-8">
+    <div className="container mx-auto px-1 py-2 md:px-4 md:py-4">
       <ContainerManagementHeader
         filters={filters}
         onFiltersChange={setFilters}

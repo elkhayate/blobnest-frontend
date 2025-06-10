@@ -49,7 +49,6 @@ export function EditUserDialog({
   user,
 }: EditUserDialogProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  console.log(user);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

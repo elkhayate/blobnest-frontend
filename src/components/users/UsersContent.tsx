@@ -97,7 +97,7 @@ export function UsersContent() {
   }
 
   return (
-    <div className="container mx-auto px-1 py-2 md:px-4 md:py-8">
+    <div className="container mx-auto px-1 py-2 md:px-4 md:py-4">
       <UserManagementHeader
         filters={filters}
         onFiltersChange={setFilters}

@@ -4,8 +4,6 @@ export interface AuditLog {
   timestamp: string;
   containerName: string;
   operation: AuditLogOperation;
-  userId: string;
-  userName: string;
   details: Record<string, any>;
 }
 
