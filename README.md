@@ -33,4 +33,3 @@ BlobNest is a modern, professional web dashboard for managing and monitoring you
 ## Live Demo
 
 You can [connect with me on LinkedIn](https://www.linkedin.com/in/mohamed-el-khayate-4535a91b6/) to request demo credentials for testing the application with an existing Azure account. Alternatively, you're welcome to sign up and connect your own Azure storage account.
-You can contact me on linkedIn to give an already linked with azure account to test the app, or fell free to sign up and link your proper account
