@@ -88,12 +88,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="p-6 space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Settings</h1>
-        
-      </div>
-
+    <div className="container mx-auto px-1 py-2 md:px-4 md:py-8">
       <Tabs defaultValue="user" className="w-full">
         <TabsList>
           <TabsTrigger value="user">User</TabsTrigger>

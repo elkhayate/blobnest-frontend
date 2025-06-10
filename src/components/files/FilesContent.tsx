@@ -9,9 +9,8 @@ import { Pagination } from "@/components/ui/pagination";
 import { useGetAllFiles } from "@/api/files/queries";
 import { useUploadFile, useUpdateFile, useDeleteFile } from "@/api/files/mutations";
 import type { FileMetadata, FileFilters, CreateFileFormData, UpdateFileFormData } from "@/types/file";
-import { LoadingSpinner } from "../ui/loading-spinner";
 
-const defaultFilters: FileFilters = {
+const DEFAULT_FILTERS: FileFilters = {
   search: "",
   contentType: "",
   page: 1,
@@ -19,30 +18,16 @@ const defaultFilters: FileFilters = {
 };
 
 export function FilesContent() {
-  const [filters, setFilters] = useState<FileFilters>(defaultFilters);
+  const [filters, setFilters] = useState<FileFilters>(DEFAULT_FILTERS);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<FileMetadata | null>(null);
 
-  const { data: filesData, isLoading } = useGetAllFiles(filters);
+  const { data: filesData, isLoading, error } = useGetAllFiles(filters);
   const uploadFile = useUploadFile();
   const updateFile = useUpdateFile();
   const deleteFile = useDeleteFile();
-
-  const handleCreateClick = () => {
-    setIsCreateDialogOpen(true);
-  };
-
-  const handleEditClick = (file: FileMetadata) => {
-    setSelectedFile(file);
-    setIsEditDialogOpen(true);
-  };
-
-  const handleDeleteClick = (file: FileMetadata) => {
-    setSelectedFile(file);
-    setIsDeleteDialogOpen(true);
-  };
 
   const handleCreateSubmit = async (data: CreateFileFormData) => {
     try {
@@ -98,42 +83,50 @@ export function FilesContent() {
     }
   };
 
-  const handleFiltersChange = (newFilters: FileFilters) => {
-    setFilters(newFilters);
+  const handleEditClick = (file: FileMetadata) => {
+    setSelectedFile(file);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleDeleteClick = (file: FileMetadata) => {
+    setSelectedFile(file);
+    setIsDeleteDialogOpen(true);
   };
 
   const handlePageChange = (page: number) => {
     setFilters((prev) => ({ ...prev, page }));
   };
- 
-  if (isLoading) {
-    return <LoadingSpinner />;
+
+  if (error) {
+    throw error;
   }
 
   return (
-    <div className="space-y-4">
+    <div className="container mx-auto px-1 py-2 md:px-4 md:py-8">
       <FilesManagementHeader
         filters={filters}
-        onFiltersChange={handleFiltersChange}
-        onCreateClick={handleCreateClick}
+        onFiltersChange={setFilters}
+        onCreateClick={() => setIsCreateDialogOpen(true)}
       />
 
-      <FilesManagementTable
-        files={filesData?.files || []}
-        isLoading={isLoading}
-        onEditClick={handleEditClick}
-        onDeleteClick={handleDeleteClick}
-      />
+      <div className="mt-6 md:mt-8">
+        <FilesManagementTable
+          files={filesData?.files || []}
+          isLoading={isLoading}
+          onEditClick={handleEditClick}
+          onDeleteClick={handleDeleteClick}
+        />
 
-      {filesData && filesData.total > filters.rowsPerPage && (
-        <div className="flex justify-center">
-          <Pagination
-            currentPage={filters.page}
-            totalPages={filesData.totalPages}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      )}
+        {filesData && filesData.total > filters.rowsPerPage && (
+          <div className="mt-4 flex justify-center">
+            <Pagination
+              currentPage={filters.page}
+              totalPages={filesData.totalPages}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        )}
+      </div>
 
       <CreateFileDialog
         open={isCreateDialogOpen}

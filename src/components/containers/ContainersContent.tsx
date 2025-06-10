@@ -9,7 +9,6 @@ import { Pagination } from "@/components/ui/pagination";
 import { useCreateContainer, useUpdateContainer, useDeleteContainer } from "@/api/containers/mutations";
 import { useGetContainers } from "@/api/containers/queries";
 import type { Container, ContainerFilters, CreateContainerFormData, UpdateContainerFormData } from "@/types/container";
-import { LoadingSpinner } from "../ui/loading-spinner";
 
 const DEFAULT_FILTERS: ContainerFilters = {
   search: "",
@@ -24,7 +23,7 @@ export function ContainersContent() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedContainer, setSelectedContainer] = useState<Container | null>(null);
 
-  const { data, isLoading } = useGetContainers(filters);
+  const { data, isLoading, error } = useGetContainers(filters);
   const createContainer = useCreateContainer();
   const updateContainer = useUpdateContainer();
   const deleteContainer = useDeleteContainer();
@@ -92,13 +91,12 @@ export function ContainersContent() {
     setFilters((prev) => ({ ...prev, page }));
   };
 
-  if (isLoading) {
-    return <LoadingSpinner />;
+  if (error) {
+    throw error;
   }
 
-
   return (
-    <div className="space-y-4">
+    <div className="container mx-auto px-1 py-2 md:px-4 md:py-8">
       <ContainerManagementHeader
         filters={filters}
         onFiltersChange={setFilters}

@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Pencil, Trash2 } from "lucide-react";
 import type { User } from "@/types/user";
 import { RoleBasedFeature } from "../RoleBasedFeature";
+import { Card } from "@/components/ui/card";
 
 interface UserManagementTableProps {
   users: User[];
@@ -110,46 +111,46 @@ export function UserManagementTable({
       </div>
 
       {/* Mobile Card View */}
-      <div className="md:hidden flex flex-col gap-4">
-        {users.map((user) => (
-          <div key={user.id} className="p-4 space-y-3 rounded-md border bg-background">
-            <div className="flex items-start justify-between gap-2 flex-wrap">
-              <div className="min-w-0">
-                <h3 className="font-medium break-words">{user.display_name}</h3>
-                <p className="text-sm text-muted-foreground break-words">{user.email}</p>
+      <div className="md:hidden space-y-4 p-4">
+          {users.map((user) => (
+            <Card key={user.id} className="rounded-md border bg-background p-4">
+              <div className="flex items-start justify-between gap-2 flex-wrap">
+                <div className="min-w-0">
+                  <h3 className="font-medium break-words">{user.display_name}</h3>
+                  <p className="text-sm text-muted-foreground break-words">{user.email}</p>
+                </div>
+                <Badge variant="secondary" className={`text-xs px-2 py-1 rounded-full capitalize ${getRoleBadgeColor(user.role)} whitespace-nowrap`}>
+                  {user.role}
+                </Badge>
               </div>
-              <Badge variant="secondary" className={`text-xs px-2 py-1 rounded-full capitalize ${getRoleBadgeColor(user.role)} whitespace-nowrap`}>
-                {user.role}
-              </Badge>
-            </div>
-            <div className="flex items-center justify-between flex-wrap gap-2">
-              <p className="text-sm text-muted-foreground break-words">
-                Created {new Date(user.created_at).toLocaleDateString()}
-              </p>
-              <div className="flex gap-2">
-                <RoleBasedFeature
-                  allowedRoles={["admin"]}
-                  children={
-                    <Button
-                      variant="secondary"
-                      size="icon"
-                      onClick={() => onEditClick(user)}
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </Button>} />
-                <RoleBasedFeature
-                  allowedRoles={["admin"]}
-                  children={
-                    <Button
-                      variant="destructive"
-                      size="icon"
-                      onClick={() => onDeleteClick(user)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>} />
+              <div className="flex items-center justify-between flex-wrap gap-2 mt-3">
+                <p className="text-sm text-muted-foreground break-words">
+                  Created {new Date(user.created_at).toLocaleDateString()}
+                </p>
+                <div className="flex gap-2">
+                  <RoleBasedFeature
+                    allowedRoles={["admin"]}
+                    children={
+                      <Button
+                        variant="secondary"
+                        size="icon"
+                        onClick={() => onEditClick(user)}
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </Button>} />
+                  <RoleBasedFeature
+                    allowedRoles={["admin"]}
+                    children={
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => onDeleteClick(user)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>} />
+                </div>
               </div>
-            </div>
-          </div>
+          </Card>
         ))}
       </div>
     </div>
