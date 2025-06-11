@@ -6,18 +6,6 @@ import path from 'path'
 export default defineConfig({
   plugins: [
     react(),
-    {
-      name: 'spa-fallback',
-      configureServer(server) {
-        server.middlewares.use('/api', (_, __, next) => next())
-        server.middlewares.use((req, _, next) => {
-          if (req.url && !req.url.includes('.') && req.url !== '/') {
-            req.url = '/index.html'
-          }
-          next()
-        })
-      }
-    }
   ],
   resolve: {
     alias: {
