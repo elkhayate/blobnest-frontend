@@ -33,7 +33,7 @@ function Login() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       if (data.session?.user) {
-        navigate("/")
+        navigate("/dashboard")
       }
     });
   }, [])
@@ -56,7 +56,7 @@ function Login() {
       }
   
       if (sessionData?.session) {
-        navigate("/");
+        navigate("/dashboard");
       }
     } catch (err) {
       setError("Unexpected error occurred.");

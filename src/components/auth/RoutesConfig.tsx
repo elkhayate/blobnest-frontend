@@ -13,6 +13,8 @@ import Containers from '@/pages/maintenance/Containers';
 import Files from '@/pages/maintenance/Files';
 import AuditLogs from '@/pages/maintenance/AuditLogs';
 import Users from '@/pages/internal/Users';
+import LandingPage from '@/pages/landing/LandingPage';
+import { AuthRedirect } from './AuthRedirect';
 import { ProtectedRoute } from '../ProtectedRoute';
 import Unauthorized from '../general/Unauthorized';
 import { Suspense, type JSX } from 'react';
@@ -25,6 +27,7 @@ interface RouteConfig {
 }
 
 const publicRoutes: RouteConfig[] = [
+  { path: '/', element: <AuthRedirect><LandingPage /></AuthRedirect> },
   { path: '*', element: <NotFound /> },
   { path: '/login', element: <Login /> },
   { path: '/signup', element: <SignUp /> },
@@ -35,7 +38,7 @@ const publicRoutes: RouteConfig[] = [
 ];
 
 const protectedRoutes: RouteConfig[] = [
-  { path: '/', element: <Dashboard />, roles: ['viewer', 'admin', 'uploader'] },
+  { path: '/dashboard', element: <Dashboard />, roles: ['viewer', 'admin', 'uploader'] },
   { path: '/settings', element: <Settings />, roles: ['admin', 'uploader', 'viewer'] },
   { path: '/containers', element: <Containers />, roles: ['viewer', 'admin', 'uploader'] },
   { path: '/files', element: <Files />, roles: ['viewer', 'admin', 'uploader'] },

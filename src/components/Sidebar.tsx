@@ -7,7 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { RoleBasedFeature } from "./RoleBasedFeature";
 
 const menu = [
-  { label: "Dashboard", icon: LayoutDashboard, path: "/", roles: ["viewer", "admin", "uploader"] },
+  { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard", roles: ["viewer", "admin", "uploader"] },
   { label: "Containers", icon: Archive, path: "/containers", roles: ["viewer", "admin", "uploader"] },
   { label: "Files", icon: File, path: "/files", roles: ["viewer", "admin", "uploader"] },
   { label: "Users", icon: Users, path: "/users", roles: ["admin" ] },
