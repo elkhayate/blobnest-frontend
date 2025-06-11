@@ -22,6 +22,7 @@ BlobNest is a modern, professional web dashboard for managing and monitoring you
 - **Backend**: Express.js, TypeScript, Supabase, Azure Storage SDK
 - **Security**: Helmet, Express Rate Limit, Express Validator, Zod
 - **Logging**: Winston, Morgan
+- **Caching**: Redis, Upstash
 - **File Handling**: Multer
 - **Performance**: Compression
 

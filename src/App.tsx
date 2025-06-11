@@ -4,7 +4,23 @@ import RoutesConfig from "@/components/auth/RoutesConfig";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/context/AuthContext";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,  
+      gcTime: 1000 * 60 * 30, 
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchOnMount: false,
+      retry: 1,
+      retryOnMount: false,
+    },
+    mutations: {
+      gcTime: 1000 * 60 * 5,
+      retry: 1,
+    },
+  }
+});
 
 function App() {
   return (
